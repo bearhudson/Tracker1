@@ -1,5 +1,4 @@
 import requests
-import datetime
 from environs import *
 from print_error import print_results
 
@@ -28,14 +27,14 @@ class SheetsUpdater:
             self.get_req = requests.get(url=self.endpoint, headers=headers)
         except requests.exceptions.RequestException as exception:
             raise SystemExit(exception)
+        print_results("Get", self.get_req.status_code)
         self.get_req_json = self.get_req.json()
-        return self.get_req_json
 
-    def add_row(self):
+    def add_row(self, **kwargs):
         pass
 
-    def edit_row(self, object_id):
+    def edit_row(self, object_id, **kwargs):
         pass
 
-    def delete_row(self, object_id):
+    def delete_row(self, object_id, **kwargs):
         pass
