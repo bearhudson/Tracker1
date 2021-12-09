@@ -31,7 +31,7 @@ def input_food():
             print("----")
             print(f"Name: {item['food_name']}")
             print(f"Quantity: {item['serving_qty']}")
-            print(f"Weight: {item['serving_weight_grams']}")
+            print(f"Weight (g): {item['serving_weight_grams']}")
             print(f"Calories: {item['nf_calories']}")
             item_cal = int(item['nf_calories'])
             query_results[food_id] = {
