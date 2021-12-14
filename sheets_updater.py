@@ -54,6 +54,7 @@ class SheetsUpdater:
             print("Error")
 
         print(self.endpoint)
+        print(payload)
         try:
             self.add_req = requests.post(url=self.endpoint, json=payload, headers=headers)
         except requests.exceptions.RequestException as exception:
