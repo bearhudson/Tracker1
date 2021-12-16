@@ -1,4 +1,5 @@
 from src.food_processor import *
+from src.sheets_updater import *
 
 # workout_input = input_exercise()
 # workout_sheet = SheetsUpdater(workout_sheet_name)
@@ -13,5 +14,4 @@ tracker_user = input("Which user? ")
 tracker_user = UserConfig(tracker_user)
 tracker_user.fetch_user_details()
 print(tracker_user.get_user_details())
-food_input = input_food()
-food_sheet = SheetsUpdater(food_sheet_name)
+exercise_sheet = SheetsUpdater(tracker_user, row_type='exercise')

@@ -1,70 +1,29 @@
-import requests
 from src.environs import *
 from src.sql_functions import *
-from print_error import print_results
-
-headers = {
-    "Authorization": f"Bearer {bearertoken}",
-    "Content-Type": "application/json",
-}
-url = f"https://api.sheety.co/{url_string}"
 
 
-class SheetsUpdater:
+class SheetsUpdater(UserConfig):
 
-    def __init__(self, sheet_name):
-        self.endpoint = f"{url}/{sheet_name}"
-        self.get_req = None
-        self.get_req_json = {}
-        self.add_req = None
-        self.add_req_json = {}
-        self.edit_req = None
-        self.edit_req_json = {}
-        self.delete_req = None
-        self.delete_req_json = {}
-
-    def get_sheets(self):
-        try:
-            self.get_req = requests.get(url=self.endpoint, headers=headers)
-        except requests.exceptions.RequestException as exception:
-            raise SystemExit(exception)
-        print_results("Get", self.get_req.status_code)
-        self.get_req_json = self.get_req.json()
-        return self.get_req_json
-
-    def add_row(self, entry_type, add_object):
-        if entry_type == "workout":
-            payload = {
-                "workout": {
-                    "Date": add_object["Date"],
-                    "Time": add_object["Time"],
-                    "Exercise": add_object["Exercise"],
-                    "Duration": add_object["Duration"],
-                    "Calories": add_object["Calories"]
-                }
-            }
-        elif entry_type == "food":
-            payload = {
-                "food": {
-                    "Date": add_object["Date"],
-                    "Food": add_object["Food"],
-                    "Calories": add_object["Calories"]
-                }
-            }
+    def __init__(self, email_address, row_type):
+        super().__init__(email_address)
+        self.row_type = row_type
+        record_count_query = f"SELECT COUNT(*) from {self.row_type} where {self.row_type}.user = {self.user_id}"
+        self.record_count = self.sql_select(record_count_query)
+        if self.record_count == 0:
+            print("No records found!")
+            print(f"Type {self.row_type}")
         else:
-            print("Error")
+            print("Records found!")
+            print(f"Type {self.row_type}")
 
-        print(self.endpoint)
-        print(payload)
-        try:
-            self.add_req = requests.post(url=self.endpoint, json=payload, headers=headers)
-        except requests.exceptions.RequestException as exception:
-            raise SystemExit(exception)
-        print_results("Post", self.add_req.status_code)
-        print(self.add_req.text)
+    def get_rows(self):
+        self.sql_select()
 
-    def edit_row(self, object_id, *args):
+    def set_row(self):
         pass
 
-    def delete_row(self, object_id, *args):
+    def edit_row(self):
+        pass
+
+    def delete_row(self):
         pass

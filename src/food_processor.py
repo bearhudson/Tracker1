@@ -1,7 +1,7 @@
 from src.environs import *
 import requests
 import datetime
-from print_error import print_results
+from src.print_error import print_results
 from src.sql_functions import *
 
 
