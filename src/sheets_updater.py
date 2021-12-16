@@ -1,5 +1,6 @@
 import requests
-from environs import *
+from src.environs import *
+from src.sql_functions import *
 from print_error import print_results
 
 headers = {

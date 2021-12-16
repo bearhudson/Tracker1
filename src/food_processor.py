@@ -1,7 +1,8 @@
-from environs import *
+from src.environs import *
 import requests
 import datetime
 from print_error import print_results
+from src.sql_functions import *
 
 
 def input_food():
@@ -46,3 +47,9 @@ def input_food():
     print("-----------------")
     print(f"Total Calories Consumed: {total_cal}")
     return return_results
+
+
+class FoodProcessor(UserConfig):
+
+    def __init__(self):
+        super().__init__()

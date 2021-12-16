@@ -1,6 +1,6 @@
 import datetime
 
-from environs import *
+from src.environs import *
 import requests
 from print_error import print_results
 
