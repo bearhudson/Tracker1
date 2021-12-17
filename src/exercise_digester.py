@@ -60,11 +60,17 @@ class ExerciseClass:
     def write_query(self, data_point):
         uuid = uuid1()
         user = self.user_profile.get_user_id()
-        exercise_insert_query = f"INSERT INTO exercise (date, name, duration, calories, user, uuid) VALUES " \
-                            f"('{self.time.strftime('%Y-%m-%d')}'," \
-                            f"'{data_point['Exercise']}'," \
-                            f"'{data_point['Duration']}'," \
-                            f"'{data_point['Calories']}'," \
-                            f"'{user}'," \
-                            f"'{uuid}');"
+        exercise_insert_query = f"INSERT INTO exercise (date, name, duration, " \
+                                f"calories, user, uuid) VALUES " \
+                                f"('{self.time.strftime('%Y-%m-%d')}'," \
+                                f"'{data_point['Exercise']}'," \
+                                f"'{data_point['Duration']}'," \
+                                f"'{data_point['Calories']}'," \
+                                f"'{user}'," \
+                                f"'{uuid}');"
         return exercise_insert_query
+
+    def return_daily_exercise_query(self):
+        user = self.user_profile.get_user_id()
+        exercise_daily_select = f"SELECT * from exercise where date = '{self.time.strftime('%Y-%m-%d')}' and user = '{user}';"
+        return exercise_daily_select

@@ -43,6 +43,8 @@ class FoodClass:
                 self.query_results[food_id] = {
                     "Food": f"{item['food_name']}",
                     "Calories": f"{item['nf_calories']}",
+                    "Quantity": f"{item['serving_qty']}",
+                    "Weight": f"{item['serving_weight_grams']}",
                     "Date": f"{self.time.strftime('%Y/%m/%d')}",
                     "Time": f"{self.time.strftime('%H:%M')}"
                 }
@@ -54,10 +56,18 @@ class FoodClass:
     def write_query(self, data_point):
         uuid = uuid1()
         user = self.user_profile.get_user_id()
-        food_insert_query = f"INSERT INTO food (date, name, calories, user, uuid) VALUES " \
+        food_insert_query = f"INSERT INTO food (date, name, quantity, calories, weight, user, uuid) VALUES " \
                             f"('{self.time.strftime('%Y-%m-%d')}'," \
                             f"'{data_point['Food']}'," \
+                            f"'{data_point['Quantity']}'," \
                             f"'{data_point['Calories']}'," \
+                            f"'{data_point['Weight']}'," \
                             f"'{user}'," \
                             f"'{uuid}');"
         return food_insert_query
+
+    def return_daily_food_query(self):
+        user = self.user_profile.get_user_id()
+        food_daily_select = f"SELECT * from food where date = '" \
+                            f"{self.time.strftime('%Y-%m-%d')}' and user = '{user}';"
+        return food_daily_select

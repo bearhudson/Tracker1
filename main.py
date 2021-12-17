@@ -1,8 +1,12 @@
+import os
+
 from simple_term_menu import TerminalMenu
 import datetime
 import src.user_class
 import src.exercise_digester
 import src.food_digester
+from tabulate import tabulate
+from os import system
 
 now = datetime.datetime.now()
 in_loop = True
@@ -26,17 +30,11 @@ def main():
         menu_index = terminal_menu.show()
 
         if options[menu_index] == 'Display':
-            print("---------------------")
-            if len(food_results) == 0:
-                print("No Food Entered")
-            else:
-                print("Food:")
-                print_function(food_results)
-            if len(exercise_results) == 0:
-                print("No Exercise Entered")
-            else:
-                print("Exercise:")
-                print_function(exercise_results)
+            print("\n---------------------Daily Report---------------------")
+            print("Food")
+            print_food(user.select_all_query(food_digester.return_daily_food_query()))
+            print("Exercise")
+            print_exercise(user.select_all_query(exercise_digester.return_daily_exercise_query()))
         if options[menu_index] == 'Add':
             menu_add_items = ["Food", "Exercise"]
             menu_add = TerminalMenu(menu_add_items)
@@ -52,9 +50,11 @@ def main():
             if menu_update_items[menu_update_choice] == 'Food':
                 for food_item in food_results:
                     user.user_insert_query(food_digester.write_query(food_item))
+                    food_results = []
             elif menu_update_items[menu_update_choice] == 'Exercise':
                 for exercise_item in exercise_results:
                     user.user_insert_query(exercise_digester.write_query(exercise_item))
+                    exercise_results = []
         if options[menu_index] == 'Delete':
             menu_delete_items = []
             if len(food_results) > 0:
@@ -67,13 +67,21 @@ def main():
                 food_results.clear()
             if menu_delete_items[delete_index] == 'Exercise':
                 exercise_results.clear()
+    os.system('clear')
 
 
-def print_function(list_input):
+def print_food(list_input):
     if type(list_input) is not list:
         return TypeError
-    for item in list_input:
-        print(item)
+    headers = ["Date", "Name", "Quantity", "Calories", "Weight (g)", "User", "UUID"]
+    print(tabulate(list_input, headers, tablefmt='simple'))
+
+
+def print_exercise(list_input):
+    if type(list_input) is not list:
+        return TypeError
+    headers = ["Date", "Activity", "Calories", "Duration (s)", "User", "UUID"]
+    print(tabulate(list_input, headers, tablefmt='simple'))
 
 
 if __name__ == "__main__":
