@@ -1,17 +1,22 @@
-from src.food_processor import *
-from src.sheets_updater import *
+from simple_term_menu import TerminalMenu
+import datetime
+import src.user_class
 
-# workout_input = input_exercise()
-# workout_sheet = SheetsUpdater(workout_sheet_name)
-#
-# for index in workout_input:
-#     workout_sheet.add_row(entry_type='workout', add_object=index)
-# print(workout_sheet.get_sheets())
-#
-# print(food_sheet.get_sheets())
+now = datetime.datetime.now()
 
-tracker_user = input("Which user? ")
-tracker_user = UserConfig(tracker_user)
-tracker_user.fetch_user_details()
-print(tracker_user.get_user_details())
-exercise_sheet = SheetsUpdater(tracker_user, row_type='exercise')
+
+def main():
+    email = input("What is your email? ")
+    user = src.user_class.UserClass(email)
+    user.check_login()
+    user_profile = user.get_profile()
+    print(f"Welcome back {user_profile[1]}!")
+    print(f"Last Login: {user_profile[3]}")
+    options = ["Display", "Add", "Update", "Delete"]
+    terminal_menu = TerminalMenu(options)
+    menu_entry_index = terminal_menu.show()
+    print(f"You have selected {menu_entry_index}!")
+
+
+if __name__ == "__main__":
+    main()
