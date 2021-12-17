@@ -27,6 +27,7 @@ class FoodClass:
         self.req_json = req.json()
         food_id = 0
         total_cal = 0
+
         for index, food_list in self.req_json.items():
             for item in food_list:
                 print("----")
@@ -44,6 +45,4 @@ class FoodClass:
                 self.return_results.append(self.query_results[food_id])
                 total_cal = total_cal + item_cal
                 food_id += 1
-            print("-----------------")
-            print(f"Total Calories Consumed: {total_cal}")
         return self.return_results

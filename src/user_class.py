@@ -18,6 +18,7 @@ class UserClass(SQLClass):
     def check_login(self):
         query = f"SELECT * from user where user_email = '{self.user_email}';"
         results = self.select_one_query(query)
+        print("Login Successful.")
         self.user_id = results[0]
         self.user_string = results[2]
         self.last_login = results[4]
@@ -26,5 +27,30 @@ class UserClass(SQLClass):
         self.weight = results[7]
         self.height = results[8]
 
+    def get_user_id(self):
+        return self.user_id
+
+    def get_user_string(self):
+        return self.user_string
+
+    def get_user_email(self):
+        return self.user_email
+
+    def get_last_login(self):
+        return self.last_login
+
+    def get_gender(self):
+        return self.gender
+
+    def get_age(self):
+        return self.age
+
+    def get_weight(self):
+        return self.weight
+
+    def get_height(self):
+        return self.height
+
     def get_profile(self):
-        return self.user_id, self.user_string, self.user_email, self.last_login
+        return self.user_id, self.user_string, self.user_email, self.last_login, \
+               self.gender, self.age, self.weight, self.height

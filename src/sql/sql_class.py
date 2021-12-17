@@ -12,7 +12,6 @@ class SQLClass:
                 password=mysql_pass,
                 database=mysql_db,
             )
-            print("Connect successful")
         except Error as error:
             print(f"Error: {error}")
 
