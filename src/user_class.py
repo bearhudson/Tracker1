@@ -18,14 +18,18 @@ class UserClass(SQLClass):
     def check_login(self):
         query = f"SELECT * from user where user_email = '{self.user_email}';"
         results = self.select_one_query(query)
-        print("Login Successful.")
-        self.user_id = results[0]
-        self.user_string = results[2]
-        self.last_login = results[4]
-        self.gender = results[5]
-        self.age = results[6]
-        self.weight = results[7]
-        self.height = results[8]
+        if results is None:
+            print("Login Error!")
+            exit(1)
+        else:
+            print("Login Successful.")
+            self.user_id = results[0]
+            self.user_string = results[2]
+            self.last_login = results[4]
+            self.gender = results[5]
+            self.age = results[6]
+            self.weight = results[7]
+            self.height = results[8]
 
     def get_user_id(self):
         return self.user_id

@@ -1,9 +1,11 @@
 import requests
 from src.environs import *
+from uuid import uuid1
 
 
 class FoodClass:
-    def __init__(self, now):
+    def __init__(self, now, user_class):
+        self.user_profile = user_class
         self.time = now
         self.return_results = []
         self.query_results = {}
@@ -11,6 +13,8 @@ class FoodClass:
         self.req_json = {}
 
     def get_food_input(self):
+        self.return_results.clear()
+        self.query_results.clear()
         query = input("What do you shove down your gullet today? ")
         headers = {
             'Content-Type': 'application/json',
@@ -46,3 +50,9 @@ class FoodClass:
                 total_cal = total_cal + item_cal
                 food_id += 1
         return self.return_results
+
+    def write_query(self, data_point):
+        uuid = uuid1()
+        now = self.time
+        user = self.user_profile.get_user_id()
+        print(user, data_point, uuid)

@@ -1,6 +1,7 @@
 import mysql.connector
 from mysql.connector import Error
 from src.environs import *
+from uuid import uuid1
 
 
 class SQLClass:
@@ -16,7 +17,6 @@ class SQLClass:
             print(f"Error: {error}")
 
     def select_all_query(self, query):
-        success = False
         cursor = self.connection.cursor()
         try:
             cursor.execute(query)
@@ -26,7 +26,6 @@ class SQLClass:
         return results
 
     def select_one_query(self, query):
-        success = False
         cursor = self.connection.cursor()
         try:
             cursor.execute(query)
@@ -34,3 +33,11 @@ class SQLClass:
         except Error as err:
             print(f"Error: '{err}'")
         return results
+
+    def insert_query(self, query, values):
+        cursor = self.connection.cursor()
+        try:
+            cursor.execute(query, values)
+        except Error as err:
+            print(f"Error: {err}")
+        return cursor.getlastrowid()

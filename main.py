@@ -18,7 +18,7 @@ def main():
     print(f"Last Login: {user.get_last_login()}")
 
     exercise_digester = src.exercise_digester.ExerciseClass(now, user)
-    food_digester = src.food_digester.FoodClass(now)
+    food_digester = src.food_digester.FoodClass(now, user)
 
     while in_loop:
         options = ["Display", "Add", "Update", "Delete"]
@@ -45,7 +45,15 @@ def main():
             elif menu_add_items[menu_add_choice] == 'Exercise':
                 exercise_results = exercise_results + exercise_digester.get_exercise_input()
         if options[menu_index] == 'Update':
-            print("Update!")
+            menu_update_items = ["Food", "Exercise"]
+            menu_update = TerminalMenu(menu_update_items)
+            menu_update_choice = menu_update.show()
+            if menu_update_items[menu_update_choice] == 'Food':
+                for food_item in food_results:
+                    food_digester.write_query(food_item)
+            elif menu_update_items[menu_update_choice] == 'Exercise':
+                for exercise_item in exercise_results:
+                    exercise_digester.write_query(exercise_item)
         if options[menu_index] == 'Delete':
             menu_delete_items = []
             if len(food_results) > 0:
@@ -55,9 +63,9 @@ def main():
             delete_menu = TerminalMenu(menu_delete_items)
             delete_index = delete_menu.show()
             if menu_delete_items[delete_index] == 'Food':
-                food_results = []
+                food_results.clear()
             if menu_delete_items[delete_index] == 'Exercise':
-                exercise_results = []
+                exercise_results.clear()
 
 
 def print_function(list_input):

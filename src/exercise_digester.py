@@ -1,6 +1,7 @@
 import requests
 from src.environs import *
 from src.user_class import *
+from uuid import uuid1
 
 
 class ExerciseClass:
@@ -13,6 +14,8 @@ class ExerciseClass:
         self.endpoint = "https://trackapi.nutritionix.com/v2/natural/exercise/"
 
     def get_exercise_input(self):
+        self.return_results.clear()
+        self.query_results.clear()
         self.total_cal = 0
         self.ex_id = 0
         query = input("How did you get off your ass today? ")
@@ -53,3 +56,9 @@ class ExerciseClass:
         print("-----------------")
         print(f"Total Calories Burned: {self.total_cal}")
         return self.return_results
+
+    def write_query(self, data_point):
+        uuid = uuid1()
+        now = self.time
+        user = self.user_profile.get_user_id()
+        print(user, data_point, uuid)
