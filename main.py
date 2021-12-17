@@ -26,6 +26,7 @@ def main():
         menu_index = terminal_menu.show()
 
         if options[menu_index] == 'Display':
+            print("---------------------")
             if len(food_results) == 0:
                 print("No Food Entered")
             else:
@@ -50,10 +51,10 @@ def main():
             menu_update_choice = menu_update.show()
             if menu_update_items[menu_update_choice] == 'Food':
                 for food_item in food_results:
-                    food_digester.write_query(food_item)
+                    user.user_insert_query(food_digester.write_query(food_item))
             elif menu_update_items[menu_update_choice] == 'Exercise':
                 for exercise_item in exercise_results:
-                    exercise_digester.write_query(exercise_item)
+                    user.user_insert_query(exercise_digester.write_query(exercise_item))
         if options[menu_index] == 'Delete':
             menu_delete_items = []
             if len(food_results) > 0:

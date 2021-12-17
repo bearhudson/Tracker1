@@ -53,6 +53,11 @@ class FoodClass:
 
     def write_query(self, data_point):
         uuid = uuid1()
-        now = self.time
         user = self.user_profile.get_user_id()
-        print(user, data_point, uuid)
+        food_insert_query = f"INSERT INTO food (date, name, calories, user, uuid) VALUES " \
+                            f"('{self.time.strftime('%Y-%m-%d')}'," \
+                            f"'{data_point['Food']}'," \
+                            f"'{data_point['Calories']}'," \
+                            f"'{user}'," \
+                            f"'{uuid}');"
+        return food_insert_query

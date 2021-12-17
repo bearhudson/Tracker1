@@ -58,3 +58,6 @@ class UserClass(SQLClass):
     def get_profile(self):
         return self.user_id, self.user_string, self.user_email, self.last_login, \
                self.gender, self.age, self.weight, self.height
+
+    def user_insert_query(self, query):
+        self.insert_query(query)

@@ -59,6 +59,12 @@ class ExerciseClass:
 
     def write_query(self, data_point):
         uuid = uuid1()
-        now = self.time
         user = self.user_profile.get_user_id()
-        print(user, data_point, uuid)
+        exercise_insert_query = f"INSERT INTO exercise (date, name, duration, calories, user, uuid) VALUES " \
+                            f"('{self.time.strftime('%Y-%m-%d')}'," \
+                            f"'{data_point['Exercise']}'," \
+                            f"'{data_point['Duration']}'," \
+                            f"'{data_point['Calories']}'," \
+                            f"'{user}'," \
+                            f"'{uuid}');"
+        return exercise_insert_query
