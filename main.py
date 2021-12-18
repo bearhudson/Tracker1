@@ -73,8 +73,7 @@ def main():
             if menu_report_items[report_index] == 'Food':
                 src.graph.report(src.user_class.UserClass.select_all_query(food_digester.return_daily_food_query()))
             if menu_report_items[report_index] == 'Exercise':
-                report_query = src.exercise_digester.weekly_exercise_report_query()
-                src.graph.report(src.user_class.UserClass.select_all_query(query=report_query))
+                pass
         if options[menu_index] == 'Quit':
             user.update_query(user.update_last_login(now))
             exit(0)
