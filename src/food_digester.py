@@ -77,5 +77,6 @@ class FoodClass:
         return food_daily_delete
 
     def weekly_food_report_query(self):
-        weekly_calorie_query = f"SELECT * FROM food WHERE date >= DATE(NOW() + interval -7 DAY) and user = {self.user};"
+        weekly_calorie_query = f"SELECT * FROM food WHERE date >= DATE(NOW() + interval -7 DAY)" \
+                               f" and user = {self.user} order by date asc;"
         return weekly_calorie_query

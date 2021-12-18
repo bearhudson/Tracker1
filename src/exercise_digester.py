@@ -71,7 +71,8 @@ class ExerciseClass:
         return exercise_insert_query
 
     def return_daily_exercise_query(self):
-        exercise_daily_select = f"SELECT * from exercise where date = '{self.time.strftime('%Y-%m-%d')}' and user = '{self.user}';"
+        exercise_daily_select = f"SELECT * from exercise where date = '{self.time.strftime('%Y-%m-%d')}'" \
+                                f"and user = '{self.user}';"
         return exercise_daily_select
 
     def delete_exercise_entry(self):
@@ -80,5 +81,6 @@ class ExerciseClass:
         return exercise_daily_delete
 
     def weekly_exercise_report_query(self):
-        weekly_calorie_query = f"SELECT * FROM exercise WHERE date >= DATE(NOW() + interval -7 DAY) and user = '{self.user}';"
+        weekly_calorie_query = f"SELECT * FROM exercise WHERE date >= DATE(NOW() + interval -7 DAY)" \
+                               f" and user = '{self.user}' order by date asc;"
         return weekly_calorie_query
