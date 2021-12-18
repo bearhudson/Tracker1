@@ -1,5 +1,4 @@
 import requests
-from src.environs import *
 from src.user_class import *
 from uuid import uuid1
 

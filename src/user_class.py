@@ -1,5 +1,3 @@
-import mysql.connector.errors
-from src.environs import *
 from src.sql.sql_class import SQLClass
 
 
