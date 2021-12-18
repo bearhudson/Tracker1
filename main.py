@@ -71,9 +71,11 @@ def main():
             report_menu = TerminalMenu(menu_report_items)
             report_index = report_menu.show()
             if menu_report_items[report_index] == 'Food':
-                src.graph.report(src.user_class.UserClass.select_all_query(food_digester.return_daily_food_query()))
+                src.graph.report(user.select_all_query(food_digester.weekly_food_report_query()),
+                                 report_type='food')
             if menu_report_items[report_index] == 'Exercise':
-                pass
+                src.graph.report(user.select_all_query(exercise_digester.weekly_exercise_report_query()),
+                                 report_type='exercise')
         if options[menu_index] == 'Quit':
             user.update_query(user.update_last_login(now))
             exit(0)

@@ -62,6 +62,9 @@ class UserClass(SQLClass):
     def user_insert_query(self, query):
         self.insert_query(query)
 
+    def user_select_all(self, query):
+        self.select_all_query(query)
+
     def update_last_login(self, today):
         today_str = today.strftime('%Y-%m-%d')
         query = f"UPDATE user set last_login = '{today_str}' where user_email = " \
