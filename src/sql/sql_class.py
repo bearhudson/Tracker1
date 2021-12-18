@@ -22,6 +22,7 @@ class SQLClass:
             results = cursor.fetchall()
         except Error as err:
             print(f"Error: '{err}'")
+        cursor.close()
         return results
 
     def select_one_query(self, query):
@@ -31,6 +32,7 @@ class SQLClass:
             results = cursor.fetchone()
         except Error as err:
             print(f"Error: '{err}'")
+        cursor.close()
         return results
 
     def insert_query(self, query):
@@ -40,6 +42,7 @@ class SQLClass:
             self.connection.commit()
         except Error as err:
             print(f"Error: {err}")
+        cursor.close()
 
     def delete_query(self, query):
         cursor = self.connection.cursor()
@@ -48,6 +51,7 @@ class SQLClass:
             self.connection.commit()
         except Error as err:
             print(f"Error: {err}")
+        cursor.close()
 
     def update_query(self, query):
         cursor = self.connection.cursor()
@@ -56,4 +60,5 @@ class SQLClass:
             self.connection.commit()
         except Error as err:
             print(f"Error: {err}")
+        cursor.close()
         return cursor.rowcount

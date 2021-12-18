@@ -4,13 +4,14 @@ from uuid import uuid1
 
 
 class FoodClass:
-    def __init__(self, now, user_class):
-        self.user_profile = user_class
+    def __init__(self, now, user_object):
+        self.user_profile = user_object
         self.time = now
         self.return_results = []
         self.query_results = {}
-        self.endpoint = "https://trackapi.nutritionix.com/v2/natural/nutrients/"
         self.req_json = {}
+        self.user = self.user_profile.get_user_id()
+        self.endpoint = "https://trackapi.nutritionix.com/v2/natural/nutrients/"
 
     def get_food_input(self):
         self.return_results.clear()
@@ -55,25 +56,26 @@ class FoodClass:
 
     def write_query(self, data_point):
         uuid = uuid1()
-        user = self.user_profile.get_user_id()
         food_insert_query = f"INSERT INTO food (date, name, quantity, calories, weight, user, uuid) VALUES " \
                             f"('{self.time.strftime('%Y-%m-%d')}'," \
                             f"'{data_point['Food']}'," \
                             f"'{data_point['Quantity']}'," \
                             f"'{data_point['Calories']}'," \
                             f"'{data_point['Weight']}'," \
-                            f"'{user}'," \
+                            f"'{self.user}'," \
                             f"'{uuid}');"
         return food_insert_query
 
     def return_daily_food_query(self):
-        user = self.user_profile.get_user_id()
         food_daily_select = f"SELECT * from food where date = '" \
-                            f"{self.time.strftime('%Y-%m-%d')}' and user = '{user}';"
+                            f"{self.time.strftime('%Y-%m-%d')}' and user = '{self.user}';"
         return food_daily_select
 
     def delete_food_entry(self):
-        user = self.user_profile.get_user_id()
         food_daily_delete = f"DELETE from food where date = '" \
-                            f"{self.time.strftime('%Y-%m-%d')}' and user = '{user}';"
+                            f"{self.time.strftime('%Y-%m-%d')}' and user = '{self.user}';"
         return food_daily_delete
+
+    def weekly_food_report_query(self):
+        weekly_calorie_query = f"SELECT * FROM food WHERE date >= DATE(NOW() + interval -7 DAY) and user = {self.user};"
+        return weekly_calorie_query

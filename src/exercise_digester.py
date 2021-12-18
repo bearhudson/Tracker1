@@ -11,6 +11,7 @@ class ExerciseClass:
         self.time = now
         self.return_results = []
         self.query_results = {}
+        self.user = self.user_profile.get_user_id()
         self.endpoint = "https://trackapi.nutritionix.com/v2/natural/exercise/"
 
     def get_exercise_input(self):
@@ -71,12 +72,14 @@ class ExerciseClass:
         return exercise_insert_query
 
     def return_daily_exercise_query(self):
-        user = self.user_profile.get_user_id()
-        exercise_daily_select = f"SELECT * from exercise where date = '{self.time.strftime('%Y-%m-%d')}' and user = '{user}';"
+        exercise_daily_select = f"SELECT * from exercise where date = '{self.time.strftime('%Y-%m-%d')}' and user = '{self.user}';"
         return exercise_daily_select
 
     def delete_exercise_entry(self):
-        user = self.user_profile.get_user_id()
         exercise_daily_delete = f"DELETE from exercise where date = '" \
-                            f"{self.time.strftime('%Y-%m-%d')}' and user = '{user}';"
+                            f"{self.time.strftime('%Y-%m-%d')}' and user = '{self.user}';"
         return exercise_daily_delete
+
+    def weekly_exercise_report_query(self):
+        weekly_calorie_query = f"SELECT * FROM exercise WHERE date >= DATE(NOW() + interval -7 DAY) and user = '{self.user}';"
+        return weekly_calorie_query

@@ -1,10 +1,12 @@
 from simple_term_menu import TerminalMenu
+from tabulate import tabulate
+from os import system, name
 import datetime
 import src.user_class
 import src.exercise_digester
 import src.food_digester
-from tabulate import tabulate
-from os import system, name
+import src.graph
+
 
 now = datetime.datetime.now()
 in_loop = True
@@ -24,7 +26,7 @@ def main():
     food_digester = src.food_digester.FoodClass(now, user)
 
     while in_loop:
-        options = ["Display", "Add", "Update", "Delete", "Quit"]
+        options = ["Display", "Add", "Update", "Delete", "Report", "Quit"]
         terminal_menu = TerminalMenu(options)
         menu_index = terminal_menu.show()
         if options[menu_index] == 'Display':
@@ -64,6 +66,15 @@ def main():
             if menu_delete_items[delete_index] == 'Exercise':
                 user.delete_query(exercise_digester.delete_exercise_entry())
                 exercise_results.clear()
+        if options[menu_index] == 'Report':
+            menu_report_items = ['Food', 'Exercise']
+            report_menu = TerminalMenu(menu_report_items)
+            report_index = report_menu.show()
+            if menu_report_items[report_index] == 'Food':
+                src.graph.report(src.user_class.UserClass.select_all_query(food_digester.return_daily_food_query()))
+            if menu_report_items[report_index] == 'Exercise':
+                report_query = src.exercise_digester.weekly_exercise_report_query()
+                src.graph.report(src.user_class.UserClass.select_all_query(query=report_query))
         if options[menu_index] == 'Quit':
             user.update_query(user.update_last_login(now))
             exit(0)
