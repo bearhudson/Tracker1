@@ -92,7 +92,7 @@ def print_food(list_input):
 def print_exercise(list_input):
     if type(list_input) is not list:
         return TypeError
-    headers = ["Date", "Activity", "Calories", "Duration (s)", "User", "UUID"]
+    headers = ["Date", "Activity", "Duration (m)", "Calories", "User", "UUID"]
     print(tabulate(list_input, headers, tablefmt='simple'))
     print('\n')
 

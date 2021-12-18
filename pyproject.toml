@@ -2,7 +2,7 @@
 name = "tracker1"
 version = "0.1.0"
 description = ""
-authors = ["Brian Hudson <github@selfdestroyedindustries.com>"]
+authors = ["Brian Hudson <reallybrianuhdson@gmail.com>"]
 
 [tool.poetry.dependencies]
 python = "^3.8"
