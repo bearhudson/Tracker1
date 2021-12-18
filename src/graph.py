@@ -14,11 +14,15 @@ def food_report(report_query):
     df = pd.DataFrame(report_query, columns=labels)
     df.set_index('date')
     plt.xlabel('Dates')
-    plt.ylabel('Numbers!')
-    plt.title("A graph with numbers")
+    plt.ylabel('Numbers')
+    plt.title("Calories and Weight by Day")
     plt.scatter(df['date'], df['calories'], label='Calories (k)', color='purple')
     plt.scatter(df['date'], df['weight'], label='Weight (g)', color='orange')
     plt.legend()
+    plt.show()
+    plt.title("Food Types and Calories")
+    plt.axis('equal')
+    plt.pie(df['calories'], labels=df['name'])
     plt.show()
 
 
