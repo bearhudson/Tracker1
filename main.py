@@ -16,6 +16,7 @@ def main():
     email = input("What is your email? ")
     user = src.user_class.UserClass(email)
     user.check_login()
+    clear()
     print(f"Welcome back {user.get_user_string()}!")
     print(f"Last Login: {user.get_last_login()}")
 
@@ -23,7 +24,7 @@ def main():
     food_digester = src.food_digester.FoodClass(now, user)
 
     while in_loop:
-        options = ["Display", "Add", "Update", "Delete"]
+        options = ["Display", "Add", "Update", "Delete", "Quit"]
         terminal_menu = TerminalMenu(options)
         menu_index = terminal_menu.show()
         if options[menu_index] == 'Display':
@@ -63,6 +64,9 @@ def main():
             if menu_delete_items[delete_index] == 'Exercise':
                 user.delete_query(exercise_digester.delete_exercise_entry())
                 exercise_results.clear()
+        if options[menu_index] == 'Quit':
+            user.update_query(user.update_last_login(now))
+            exit(0)
 
 
 def print_food(list_input):
