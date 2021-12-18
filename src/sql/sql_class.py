@@ -40,3 +40,11 @@ class SQLClass:
             self.connection.commit()
         except Error as err:
             print(f"Error: {err}")
+
+    def delete_query(self, query):
+        cursor = self.connection.cursor()
+        try:
+            cursor.execute(query)
+            self.connection.commit()
+        except Error as err:
+            print(f"Error: {err}")

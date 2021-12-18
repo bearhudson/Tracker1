@@ -71,3 +71,9 @@ class FoodClass:
         food_daily_select = f"SELECT * from food where date = '" \
                             f"{self.time.strftime('%Y-%m-%d')}' and user = '{user}';"
         return food_daily_select
+
+    def delete_food_entry(self):
+        user = self.user_profile.get_user_id()
+        food_daily_delete = f"DELETE from food where date = '" \
+                            f"{self.time.strftime('%Y-%m-%d')}' and user = '{user}';"
+        return food_daily_delete

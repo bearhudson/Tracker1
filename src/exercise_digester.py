@@ -74,3 +74,9 @@ class ExerciseClass:
         user = self.user_profile.get_user_id()
         exercise_daily_select = f"SELECT * from exercise where date = '{self.time.strftime('%Y-%m-%d')}' and user = '{user}';"
         return exercise_daily_select
+
+    def delete_exercise_entry(self):
+        user = self.user_profile.get_user_id()
+        exercise_daily_delete = f"DELETE from exercise where date = '" \
+                            f"{self.time.strftime('%Y-%m-%d')}' and user = '{user}';"
+        return exercise_daily_delete
